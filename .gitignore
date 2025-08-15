@@ -1,0 +1,19 @@
+# Ignore large data files
+Data/raw/creditcard.csv.zip
+Data/raw/*
+Data/processed/*
+.venv/
+
+# Ignore Python temporary files and caches
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Ignore virtual environment
+.venv/
+
+# Ignore IDE/project-specific files
+.vscode/
+*.log
+venv/

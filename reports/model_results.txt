@@ -1,0 +1,9 @@
+Model Comparison Results:
+LogisticRegression (Fraud_Data): AUC-PR = 0.6233, F1-Score = 0.6901
+RandomForest (Fraud_Data): AUC-PR = 0.6229, F1-Score = 0.6877
+LogisticRegression (Creditcard): AUC-PR = 0.6791, F1-Score = 0.1912
+RandomForest (Creditcard): AUC-PR = 0.8090, F1-Score = 0.8114
+
+Model Selection Justification:
+Logistic Regression is interpretable but may underperform on complex patterns.
+Random Forest is chosen as the best model if it shows higher AUC-PR and F1-Score, as it captures non-linear relationships and is robust to imbalanced data.
