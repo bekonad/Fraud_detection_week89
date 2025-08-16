@@ -31,12 +31,13 @@ This project implements the 10 Academy KAIM Week 8&9 Challenge: Fraud Detection 
 - **Raw and Processed Datasets**:
   - Stored via Git LFS in this repository (e.g., `Fraud_Data.csv`, `creditcard.csv`). After cloning, run `git lfs pull` to download them. Processed files are in `Data/processed/`.
 - **Generated Reports and Models**:
-  - Included in the `reports/` folder (if successfully pushed):
+  - Included in the `reports/` folder (branch `task2`): 
     - `reports/confusion_matrices/`: LogisticRegression_Creditcard_cm.png, LogisticRegression_Fraud_Data_cm.png, RandomForest_Creditcard_cm.png, RandomForest_Fraud_Data_cm.png
     - `reports/eda/`: bivariate_boxplots.png, univariate_distributions.png
     - `reports/models/`: LogisticRegression_Creditcard.pkl, LogisticRegression_Fraud_Data.pkl, RandomForest_Creditcard.pkl, RandomForest_Fraud_Data.pkl
     - `reports/`: model_results.txt
   - **Fallback**: If the `reports/` folder is not available, download from [Google Drive Link] and place them in the respective `reports/` subdirectories.
+- For branch `task3`, additional SHAP outputs may be added (see branch-specific instructions).
 
 ## Task Details
 
