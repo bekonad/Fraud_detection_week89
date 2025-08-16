@@ -16,4 +16,4 @@ venv/
 
 # Ignore IDE/project-specific files
 .vscode/
-*.log
+*.lognotebooks/
