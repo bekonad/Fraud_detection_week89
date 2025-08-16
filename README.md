@@ -1,36 +1,44 @@
 # Fraud_detection_week89
 
-Solution for 10 Academy KAIM Week 8&9 Challenge: Fraud Detection in E-commerce and Bank Transactions
+## Project Overview
 
-## Overview
+This project implements the 10 Academy KAIM Week 8&9 Challenge: Fraud Detection in E-commerce and Bank Transactions. It includes data preprocessing, exploratory data analysis (EDA), feature engineering, handling class imbalance, model training, evaluation, and optional SHAP analysis for interpretability. The work is organized into separate branches for each task.
 
-This project implements the 10 Academy Week 8&9 challenge, focusing on fraud detection in e-commerce and bank transactions. It includes data preprocessing, exploratory data analysis (EDA), feature engineering, handling class imbalance, and model evaluation. The work is organized into separate branches for each task:
+## Branches
 
-- `task1`: Data preprocessing, EDA, and feature engineering.
-- `task2`: Model training, evaluation, and visualization.
-- `task3` (optional): SHAP analysis for model interpretability.
+- `main`: Base branch with project setup and documentation.
+- `task1`: Contains data preprocessing, EDA, and feature engineering.
+- `task2`: Contains model training, evaluation, and visualization.
+- `task3`: Contains optional SHAP analysis (if implemented).
 
 ## Setup
 
-1. **Install dependencies**:
-   - Ensure you have Python installed.
+1. **Install Dependencies**:
+   - Ensure Python is installed.
    - Run: `pip install -r requirements.txt` in your virtual environment.
-2. **Place datasets**:
+2. **Activate Virtual Environment** (if using):
+   - On Windows: `.\.venv\Scripts\Activate.ps1` in the terminal.
+3. **Place Datasets**:
    - Download `Fraud_Data.csv`, `IpAddress_to_Country.csv`, and `creditcard.csv` from 10 Academy or Kaggle.
    - Place them in the `Data/raw/` directory.
-3. **Activate virtual environment** (if using):
-   - On Windows: `.\.venv\Scripts\Activate.ps1` in the terminal.
-4. **Run the scripts**:
-   - For Task 1: `scripts/fraud_detection_task1.py` (if in `scripts` folder).
-   - For Task 2: `scripts/fraud_detection_task2.py`.
-   - For Task 3: `scripts/fraud_detection_task2.py` (after adding SHAP code).
+4. **Run the Scripts**:
+   - For Task 1: `python scripts/fraud_detection_task1.py` (if in `scripts/` folder).
+   - For Task 2: `python scripts/fraud_detection_task2.py`.
+   - For Task 3: `python scripts/fraud_detection_task3.py` (after adding SHAP code).
 
-## Datasets
+## Dataset Instructions
 
-- **Sources**: Provided by 10 Academy or Kaggle (e.g., Credit Card Fraud Detection dataset).
-- **Location**: Stored in `Data/raw/`; processed files are in `Data/processed/`.
+- **Raw and Processed Datasets**:
+  - Stored via Git LFS in this repository (e.g., `Fraud_Data.csv`, `creditcard.csv`). After cloning, run `git lfs pull` to download them. Processed files are in `Data/processed/`.
+- **Generated Reports and Models**:
+  - Included in the `reports/` folder (if successfully pushed):
+    - `reports/confusion_matrices/`: LogisticRegression_Creditcard_cm.png, LogisticRegression_Fraud_Data_cm.png, RandomForest_Creditcard_cm.png, RandomForest_Fraud_Data_cm.png
+    - `reports/eda/`: bivariate_boxplots.png, univariate_distributions.png
+    - `reports/models/`: LogisticRegression_Creditcard.pkl, LogisticRegression_Fraud_Data.pkl, RandomForest_Creditcard.pkl, RandomForest_Fraud_Data.pkl
+    - `reports/`: model_results.txt
+  - **Fallback**: If the `reports/` folder is not available, download from [Google Drive Link] and place them in the respective `reports/` subdirectories.
 
-## Project Overview
+## Task Details
 
 ### Task 1 (branch: `task1`)
 
@@ -48,16 +56,10 @@ This project implements the 10 Academy Week 8&9 challenge, focusing on fraud det
 ### Task 3 (branch: `task3`, optional)
 
 - Adds SHAP (SHapley Additive exPlanations) analysis for model interpretability.
-- Generates SHAP summary plots and saves them to `Data/processed/`.
-
-## Branches
-
-- `main`: Base branch with project setup and documentation.
-- `task1`: Contains Task 1 solution.
-- `task2`: Contains Task 2 solution.
-- `task3`: Contains Task 3 solution (if implemented).
+- Generates SHAP summary plots and saves them to `reports/` (if implemented).
 
 ## Notes
 
-- Large files (e.g., `creditcard.csv`) are ignored via `.gitignore` and handled with Git LFS if needed.
-- Check GitHub[](https://github.com/bekonad/Fraud_detection_week89) for branch-specific changes.
+- Large files (e.g., `creditcard.csv`) are ignored via `.gitignore` and handled with Git LFS.
+- Check GitHub [https://github.com/bekonad/Fraud_detection_week89] for branch-specific changes.
+- Sources: Datasets provided by 10 Academy or Kaggle (e.g., Credit Card Fraud Detection dataset).
