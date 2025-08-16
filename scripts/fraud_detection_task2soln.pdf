@@ -1,0 +1,109 @@
+[Running] python -u "c:\Users\JERUSALEM\Desktop\week89\Fraud_detection_week89\scripts\fraud_detection_task2.py"
+Loading processed data...
+Data loaded successfully.
+X_fraud_train shape: (219136, 74), y_fraud_train shape: (219136,)
+X_fraud_test shape: (30223, 74), y_fraud_test shape: (30223,)
+X_creditcard_train shape: (453204, 30), y_creditcard_train shape: (453204,)
+X_creditcard_test shape: (56746, 30), y_creditcard_test shape: (56746,)
+Training LogisticRegression on Fraud_Data...
+LogisticRegression (Fraud_Data) - AUC-PR: 0.6235, F1-Score: 0.6901
+Classification Report for LogisticRegression (Fraud_Data):
+              precision    recall  f1-score   support
+
+   Non-Fraud       0.95      1.00      0.98     27393
+       Fraud       1.00      0.53      0.69      2830
+
+    accuracy                           0.96     30223
+   macro avg       0.98      0.76      0.83     30223
+weighted avg       0.96      0.96      0.95     30223
+
+Training RandomForest on Fraud_Data...
+RandomForest (Fraud_Data) - AUC-PR: 0.6230, F1-Score: 0.6823
+Classification Report for RandomForest (Fraud_Data):
+              precision    recall  f1-score   support
+
+   Non-Fraud       0.95      1.00      0.98     27393
+       Fraud       0.96      0.53      0.68      2830
+
+    accuracy                           0.95     30223
+   macro avg       0.96      0.76      0.83     30223
+weighted avg       0.95      0.95      0.95     30223
+
+Training LogisticRegression on Creditcard...
+LogisticRegression (Creditcard) - AUC-PR: 0.7129, F1-Score: 0.1000
+Classification Report for LogisticRegression (Creditcard):
+              precision    recall  f1-score   support
+
+   Non-Fraud       1.00      0.97      0.99     56651
+       Fraud       0.05      0.87      0.10        95
+
+    accuracy                           0.97     56746
+   macro avg       0.53      0.92      0.54     56746
+weighted avg       1.00      0.97      0.99     56746
+
+Training RandomForest on Creditcard...
+RandomForest (Creditcard) - AUC-PR: 0.8159, F1-Score: 0.8276
+Classification Report for RandomForest (Creditcard):
+              precision    recall  f1-score   support
+
+   Non-Fraud       1.00      1.00      1.00     56651
+       Fraud       0.91      0.76      0.83        95
+
+    accuracy                           1.00     56746
+   macro avg       0.96      0.88      0.91     56746
+weighted avg       1.00      1.00      1.00     56746
+
+
+Model Comparison:
+LogisticRegression (Fraud_Data): AUC-PR = 0.6235, F1-Score = 0.6901
+Classification Report:
+              precision    recall  f1-score   support
+
+   Non-Fraud       0.95      1.00      0.98     27393
+       Fraud       1.00      0.53      0.69      2830
+
+    accuracy                           0.96     30223
+   macro avg       0.98      0.76      0.83     30223
+weighted avg       0.96      0.96      0.95     30223
+
+RandomForest (Fraud_Data): AUC-PR = 0.6230, F1-Score = 0.6823
+Classification Report:
+              precision    recall  f1-score   support
+
+   Non-Fraud       0.95      1.00      0.98     27393
+       Fraud       0.96      0.53      0.68      2830
+
+    accuracy                           0.95     30223
+   macro avg       0.96      0.76      0.83     30223
+weighted avg       0.95      0.95      0.95     30223
+
+LogisticRegression (Creditcard): AUC-PR = 0.7129, F1-Score = 0.1000
+Classification Report:
+              precision    recall  f1-score   support
+
+   Non-Fraud       1.00      0.97      0.99     56651
+       Fraud       0.05      0.87      0.10        95
+
+    accuracy                           0.97     56746
+   macro avg       0.53      0.92      0.54     56746
+weighted avg       1.00      0.97      0.99     56746
+
+RandomForest (Creditcard): AUC-PR = 0.8159, F1-Score = 0.8276
+Classification Report:
+              precision    recall  f1-score   support
+
+   Non-Fraud       1.00      1.00      1.00     56651
+       Fraud       0.91      0.76      0.83        95
+
+    accuracy                           1.00     56746
+   macro avg       0.96      0.88      0.91     56746
+weighted avg       1.00      1.00      1.00     56746
+
+
+Model Selection Justification:
+Logistic Regression is interpretable but may underperform on complex patterns.
+Random Forest is preferred if it shows higher AUC-PR and F1-Score, as it captures non-linear relationships and is robust to imbalanced data.
+Model results saved to data/model_results.txt
+
+[Done] exited with code=0 in 610.245 seconds
+
