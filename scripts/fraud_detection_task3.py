@@ -1,9 +1,4 @@
-%cd /content/Fraud_detection_week89
-# Write updated script
-import os
-os.makedirs('/content/drive/MyDrive/scripts', exist_ok=True)
-with open('/content/drive/MyDrive/scripts/fraud_detection_task3.py', 'w') as f:
-    f.write('''
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -16,7 +11,7 @@ from datetime import datetime
 from IPython.display import Image, display, HTML
 
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.DEBUG,  # Increased verbosity
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
         logging.FileHandler('/content/drive/MyDrive/outputs/task3_output.log', mode='w'),
@@ -56,8 +51,8 @@ def load_data_and_model():
         X_creditcard_test_sample = X_creditcard_test.loc[sample_indices].copy()
         y_creditcard_test_sample = y_creditcard_test[sample_indices]
         logging.debug(f"Sampled data: X_test shape={X_creditcard_test_sample.shape}, y_test shape={y_creditcard_test_sample.shape}")
-        expected_features = ['Time', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 
-                            'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17', 'V18', 
+        expected_features = ['Time', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9',
+                            'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17', 'V18',
                             'V19', 'V20', 'V21', 'V22', 'V23', 'V24', 'V25', 'V26', 'V27', 'V28', 'Amount']
         actual_features = list(X_creditcard_test_sample.columns)
         if actual_features != expected_features:
@@ -123,10 +118,26 @@ def plot_shap_force(shap_values, explainer, X_test, dataset_name, instance_idx=0
     logging.debug(f"Generating SHAP force plot for instance {instance_idx}...")
     try:
         base_value = explainer.expected_value if np.isscalar(explainer.expected_value) else explainer.expected_value[1]
-        # Ensure shap_values is 2D for a single instance
-        shap_values_instance = shap_values[[instance_idx]] if shap_values.ndim == 2 else shap_values
-        logging.debug(f"Base value: {base_value}, SHAP values shape: {shap_values_instance.shape}, Features shape: {X_test.iloc[[instance_idx]].shape}")
-        force_plot = shap.plots.force(base_value, shap_values_instance, X_test.iloc[[instance_idx]], feature_names=X_test.columns, matplotlib=False, show=False)
+        # Reshape features for a single instance to be 2D
+        features_instance = X_test.iloc[[instance_idx]].values
+        logging.debug(f"Base value: {base_value}, SHAP values shape: {shap_values[instance_idx].shape}, Features shape: {features_instance.shape}")
+
+        # Generate force plot for a single instance (use SHAP values for class 1 and reshape if necessary)
+        # Access the SHAP values for class 1 (fraud) which should be 1D for a single instance if shap_values is 2D (samples, features)
+        if isinstance(shap_values, np.ndarray) and shap_values.ndim == 2: # If shap_values is (samples, features)
+             shap_values_instance = shap_values[instance_idx]
+        elif isinstance(shap_values, np.ndarray) and shap_values.ndim == 3: # If shap_values is (samples, features, classes)
+            shap_values_instance = shap_values[instance_idx, :, 1] # Take SHAP values for class 1
+        elif isinstance(shap_values, list) and len(shap_values) == 2: # If shap_values is a list [class0, class1]
+            shap_values_instance = shap_values[1][instance_idx] # Take SHAP values for class 1
+        else:
+             logging.error(f"Unexpected SHAP values format for force plot: {type(shap_values)}, shape: {np.array(shap_values).shape}")
+             raise ValueError(f"Unexpected SHAP values format for force plot: {type(shap_values)}, shape: {np.array(shap_values).shape}")
+
+        logging.debug(f"SHAP values instance shape after processing: {shap_values_instance.shape}")
+
+        force_plot = shap.plots.force(base_value, shap_values_instance, features_instance, feature_names=X_test.columns.tolist(), matplotlib=False, show=False)
+
         plot_path_html = f'/content/drive/MyDrive/reports/shap/force_plot_{dataset_name}_instance_{instance_idx}.html'
         logging.debug(f"Attempting to save force plot to {plot_path_html}")
         try:
@@ -150,9 +161,22 @@ def plot_shap_force(shap_values, explainer, X_test, dataset_name, instance_idx=0
 def interpret_shap(shap_values, X_test):
     logging.debug("Interpreting SHAP values...")
     try:
+        # Ensure shap_values is 2D (samples, features) for interpretation
+        if isinstance(shap_values, list) and len(shap_values) == 2:
+            shap_values_for_interpretation = shap_values[1] # Use class 1
+        elif isinstance(shap_values, np.ndarray) and shap_values.ndim == 3:
+             shap_values_for_interpretation = shap_values[:, :, 1] # Use class 1
+        elif isinstance(shap_values, np.ndarray) and shap_values.ndim == 2:
+             shap_values_for_interpretation = shap_values
+        else:
+             logging.error(f"Unexpected SHAP values format for interpretation: {type(shap_values)}, shape: {np.array(shap_values).shape}")
+             raise ValueError(f"Unexpected SHAP values format for interpretation: {type(shap_values)}, shape: {np.array(shap_values).shape}")
+
+        logging.debug(f"SHAP values shape for interpretation: {shap_values_for_interpretation.shape}")
+
         feature_importance = pd.DataFrame({
             'feature': X_test.columns,
-            'mean_shap_value': np.abs(shap_values).mean(axis=0)
+            'mean_shap_value': np.abs(shap_values_for_interpretation).mean(axis=0)
         }).sort_values('mean_shap_value', ascending=False)
         insights = """SHAP Analysis Insights:
 The SHAP summary plot shows the most important features driving fraud predictions.
@@ -184,55 +208,17 @@ The force plot illustrates how these features contribute to a specific transacti
         raise
 
 def main():
+    logging.info("Starting main execution...")
     try:
         X_creditcard_test, y_creditcard_test, model = load_data_and_model()
         shap_values, explainer = compute_shap_values(model, X_test=X_creditcard_test)
         plot_shap_summary(shap_values, X_test=X_creditcard_test, dataset_name="Creditcard")
-        plot_shap_force(shap_values, explainer, X_test=X_creditcard_test, dataset_name="Creditcard", instance_idx=0)
+        force_plot_html_path = plot_shap_force(shap_values, explainer, X_test=X_creditcard_test, dataset_name="Creditcard", instance_idx=0)
         interpret_shap(shap_values, X_test=X_creditcard_test)
+        logging.info("Main execution finished.")
     except Exception as e:
         logging.error(f"Error occurred in main: {str(e)}", exc_info=True)
         raise
 
 if __name__ == "__main__":
     main()
-''')
-
-# Copy to local directory
-!cp /content/drive/MyDrive/scripts/fraud_detection_task3.py /content/Fraud_detection_week89/scripts/fraud_detection_task3.py
-
-# Run SHAP script
-%run /content/Fraud_detection_week89/scripts/fraud_detection_task3.py
-
-# Convert HTML to PNG
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-import time
-
-def convert_html_to_png(html_path, output_png_path):
-    try:
-        options = Options()
-        options.add_argument('--headless')
-        options.add_argument('--no-sandbox')
-        options.add_argument('--disable-dev-shm-usage')
-        driver = webdriver.Chrome(options=options)
-        driver.get(f'file://{html_path}')
-        time.sleep(5)  # Increased wait time
-        driver.set_window_size(1200, 600)
-        driver.save_screenshot(output_png_path)
-        driver.quit()
-        print(f"Saved PNG: {output_png_path}")
-    except Exception as e:
-        print(f"Error converting HTML to PNG: {e}")
-
-try:
-    convert_html_to_png(
-        '/content/drive/MyDrive/reports/shap/force_plot_Creditcard_instance_0.html',
-        '/content/drive/MyDrive/reports/shap/force_plot_Creditcard_instance_0.png'
-    )
-except Exception as e:
-    print(f"Error converting HTML to PNG: {e}")
-
-# Verify outputs
-!ls -l /content/drive/MyDrive/reports/shap/
-!cat /content/drive/MyDrive/outputs/task3_output.log
