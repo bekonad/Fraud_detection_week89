@@ -1,0 +1,13 @@
+SHAP Analysis Insights:
+The SHAP summary plot shows the most important features driving fraud predictions.
+Top 5 features:
+   feature  mean_shap_value
+1       V1         0.001231
+4       V4         0.000817
+28     V28         0.000355
+10     V10         0.000331
+16     V16         0.000319
+Key drivers of fraud:
+- Features like V4, V14, V10 (Creditcard dataset) have high SHAP values, indicating strong influence on fraud likelihood.
+- Positive SHAP values push predictions towards fraud; negative values towards non-fraud.
+The force plot illustrates how these features contribute to a specific transaction's fraud prediction.
