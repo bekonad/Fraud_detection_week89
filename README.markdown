@@ -14,7 +14,53 @@ This repository contains my submission for the 10 Academy KAIM Week 8 & 9 Challe
 - Ensure reproducibility with a branch-based Git workflow in Google Colab.
 
 ## Repository Structure
-Fraud_detection_week89/ │ ├── Data/ │   ├── raw/ │   │   ├── creditcard.csv                   # Banking transactions │   │   ├── Fraud_Data.csv                  # E-commerce transactions │   │   └── IpAddress_to_Country.csv        # IP-to-country mapping │   └── processed/ │       ├── creditcard_train_processed.csv  # Processed credit card training data │       ├── creditcard_test_processed.csv   # Processed credit card test data │       ├── fraud_train_processed.csv       # Processed fraud training data │       ├── fraud_test_processed.csv        # Processed fraud test data │       ├── y_creditcard_train.csv          # Credit card training labels │       ├── y_creditcard_test.csv           # Credit card test labels │       ├── y_fraud_train.csv               # Fraud training labels │       ├── y_fraud_test.csv                # Fraud test labels │ ├── scripts/ │   ├── fraud_detection_task1.py            # Task 1 script │   ├── fraud_detection_task2.py            # Task 2 script │   ├── fraud_detection_task3.py            # Task 3 script │   ├── report.tex                          # LaTeX for technical report │   └── fraud_detection_task2soln.pdf       # Task 2 solution reference │ ├── reports/ │   ├── eda/ │   │   ├── class_distribution.png          # Class distribution │   │   ├── purchase_patterns.png           # Purchase value/amount distributions │   │   ├── bivariate_boxplots.png          # Feature-class relationships │   ├── confusion_matrices/ │   │   ├── confusion_matrix_logistic.png   # Logistic Regression confusion matrix │   │   ├── confusion_matrix_rf.png         # Random Forest confusion matrix │   │   ├── confusion_matrix_xgboost.png    # XGBoost confusion matrix │   ├── shap/ │   │   ├── shap_summary.png                # SHAP summary plot │   │   ├── shap_force_plot.png             # SHAP force plot │   ├── models/ │   │   ├── logistic_regression.pkl         # Logistic Regression model │   │   ├── RandomForest_Creditcard.pkl     # Random Forest model │   │   ├── xgboost_model.pkl               # XGBoost model │   ├── model_results.txt                   # Model performance metrics │   └── report.pdf                         # Compiled technical report │ ├── outputs/ │   ├── task1_output.log                   # Task 1 log │   ├── task2_output.log                   # Task 2 log │   └── task3_output.log                   # Task 3 log │ ├── analysis/ │   ├── blog_post.pdf                      # Medium-style blog post │   ├── final_report.pdf                   # Formal technical report │ ├── notebooks/ │   ├── fraud_detection_task1.ipynb         # Data preprocessing and EDA │   ├── fraud_detection_task2.ipynb         # Model training and evaluation │   ├── fraud_detection_task3.ipynb         # SHAP analysis and report generation │   └── Fraud_detection_project.ipynb       # End-to-end pipeline │ ├── .gitattributes                         # Git LFS configuration ├── requirements.txt                       # Python dependencies ├── LICENSE                                # MIT License └── README.md
+
+
+fraud_detection_week89/
+├── Data/
+│   ├── raw/
+│   │   ├── creditcard.csv
+│   │   ├── Fraud_Data.csv
+│   │   └── IpAddress_to_Country.csv
+│   └── processed/
+│       ├── creditcard_train_processed.csv
+│       ├── creditcard_test_processed.csv
+│       ├── fraud_train_processed.csv
+│       ├── fraud_test_processed.csv
+│       ├── y_creditcard_train.csv
+│       ├── y_creditcard_test.csv
+│       ├── y_fraud_train.csv
+│       └── y_fraud_test.csv
+├── scripts/
+│   ├── fraud_detection_task1.py
+│   ├── fraud_detection_task2.py
+│   ├── fraud_detection_task3.py
+│   ├── report.tex
+│   └── fraud_detection_task2soln.pdf
+├── reports/
+│   ├── eda/
+│   ├── confusion_matrices/
+│   ├── shap/
+│   ├── models/
+│   ├── model_results.txt
+│   └── report.pdf
+├── outputs/
+│   ├── task1_output.log
+│   ├── task2_output.log
+│   └── task3_output.log
+├── analysis/                           # ⬅️ Final written deliverables
+│   ├── blog_post.pdf                   # Polished Medium-style narrative
+│   └── final_report.pdf                # Formal technical report
+├── notebooks/                          # ⬅️ All Jupyter notebooks here
+│   ├── fraud_detection_task1.ipynb
+│   ├── fraud_detection_task2.ipynb
+│   ├── fraud_detection_task3.ipynb
+│   └── Fraud_detection_project.ipynb
+├── README.md
+├── requirements.txt
+└── LICENSE
+
+ 
 ## Branches
 
 - **`main`**: Contains the end-to-end pipeline (`Fraud_detection_project.ipynb`), documentation, and all deliverables.
